@@ -1,0 +1,679 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+
+	<title>T5-TTS</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<!-- Latest compiled and minified Bootstrap CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="style_examples.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+</head>
+<body>
+	<div class="container">
+		
+		<h1>Improving Robustness of LLM-based Speech Synthesis by Learning Monotonic Alignment</h1>
+        
+		<!-- <div style="border: 1px solid black; margin-top: 20px; margin-bottom: 10px;"></div> -->
+		<div style="border-top: 1px solid grey; margin-top: 20px; margin-bottom: 10px;"></div>
+
+		<p>We present audio examples for our paper <i>Improving Robustness of LLM-based Speech Synthesis by Learning Monotonic Alignment</i>. 
+			To perform robust text-to-speech synthesis, we propose a T5-TTS model that can learn robust text and speech alignment 
+            without modifying the model architecture or requiring ground-truth text duration. Our experiments demonstrate that our alignment 
+            learning procedure improves the reliability of TTS synthesis, especially for challenging text inputs and outperforms prior LLM-based 
+            TTS models on both intelligibility and naturalness. 
+            Our T5-TTS model can synthesize speech for seen and unseen speakers.:</p>
+		<ul>
+		</ul>
+		<div style="border-top: 1px solid grey;"></div>
+
+        <h2>Coming Soon.</h2>
+		<div class="row" style="display: none;">
+			
+			<h3>Zero-shot Any-to-Any Voice Convesion</h3>
+			
+			<p>
+				For zero-shot any-to-any voice convrsion, we select 10 target speakers (5 random Male and 5 random Female)
+				from the <i>test-clean</i> subset of the LibriTTS dataset. Next, we randomly select 20 source utterances from the remaining
+				speakers and perform voice conversion for each of the 10 target speakers. We present a few audio examples for this experiment in the table below.
+			</p>
+			<table class="table" style="margin-top: 20px;">
+				<thead>
+					<tr>
+						<th>Conversion Type</th>
+						<th>Source Utterance</th>
+						<th>Target Speaker</th>
+						<th><b>Ours - SelfVC (Predictive)</b></th>
+						<th><b>Ours - SelfVC (Guided)</b></th>
+					</tr>
+				</thead>
+				<tbody id = "unseen_speakers" >
+					
+				</tbody>
+			</table>
+		</div>
+		
+		<div style="border-top: 1px solid grey; display: none;"></div>
+		<div class="row" style="display: none;">
+			
+			<h3>Comparison Against Past Work</h3>
+			
+			<p>We present audio examples for the same pair of source and target audio using different voice conversion techniques including our own. 
+				The source uttreances and target speakers are selected from the test-clean LibriTTS in the same way as described above for 
+				zero-shot any-to-any voice conversion.
+				In this setting, we use the predictive mode for pitch and guided mode for duration to ensure a fair comparison since previous techniques 
+				preserve the duration of the source utterance.
+				We produce audio examples for prior techniques using the voice convesion inference script provided in the respective official github repositories.</p>
+			<table class="table" style="margin-top: 20px;">
+				<thead>
+					<tr>
+						<th>Conversion Type</th>
+						<th>Source Utterance</th>
+						<th>Target Speaker</th>
+						<th><a href="https://arxiv.org/abs/2110.02500">MediumVC</a></th>
+						<th><a href="https://arxiv.org/abs/2110.06280">S3PRL-VC</a></th>
+						<th><a href="https://arxiv.org/abs/2112.02418">YourTTS</a></th>
+						<th><a href="https://arxiv.org/abs/2302.08137">ACE-VC</a></th>
+						<th><b>Ours - SelfVC</b></th>
+					</tr>
+				</thead>
+				<tbody id = "comparison_table" >
+					
+				</tbody>
+			</table>
+		</div>
+		
+		<div style="border-top: 1px solid grey; display: none;"></div>
+		<div class="row" style="display: none;">
+			
+			<h3>Cross Lingual Voice Conversion</h3>
+			
+			<p>
+				For Cross lingual voice conversion, we use the CSS10 dataset that contains utterances from 10 different languages 
+				(Chinese, Greek, Finnish, Spanish, Dutch, German, Japanese, French, Hungarian, Russian). We consider three voice conversion tasks:
+				English to CSS10, CSS10 to English, and CSS10 to CSS10. We present voice converted examples from two of our models: 1) SelfVC (LibriTTS) which is 
+				trained only on English speech from train-clean-360 subset of LibriTTS. 2) SelfVC (LibriTTS + CSS10) which is finetuned on both English and CSS10 speech.
+			</p>
+
+
+			<ul class="nav nav-tabs">
+				<li class="active"><a data-toggle="tab" href="#tab1">CSS10 (Multilingual Source) To English</a></li>
+				<li><a data-toggle="tab" href="#tab2">English To CSS10 (Multilingual Speaker)</a></li>
+				<li><a data-toggle="tab" href="#tab3">CSS10 (Multilingual Source) To CSS10 (Multilingual Speaker)</a></li>
+			</ul>
+			
+			<div class="tab-content">
+			<div id="tab1" class="tab-pane fade in active">
+				<table class="table" style="margin-top: 10px; margin-bottom: 20px;">
+					<thead>
+						<tr>
+							<th>Conversion Type</th>
+							<th>Source Utterance (CSS10)</th>
+							<th>Target Speaker (English) </th>
+							<th><b>Ours - SelfVC (LibriTTS)</b></th>
+							<th><b>Ours - SelfVC (LibriTTS + CSS10)</b></th>
+						</tr>
+					</thead>
+					<tbody id = "crosslingual_css10Toenglish" >
+						
+					</tbody>
+				</table>
+			</div>
+			<div id="tab2" class="tab-pane fade">
+				<table class="table" style="margin-top: 10px; margin-bottom: 20px;">
+					<thead>
+						<tr>
+							<th>Conversion Type</th>
+							<th>Source Utterance (English) </th>
+							<th>Target Speaker (CSS10)</th>
+							<th><b>Ours - SelfVC (LibriTTS)</b></th>
+							<th><b>Ours - SelfVC (LibriTTS + CSS10)</b></th>
+						</tr>
+					</thead>
+					<tbody id = "crosslingual_englishTocss10" >
+						
+					</tbody>
+				</table>
+			</div>
+			<div id="tab3" class="tab-pane fade">
+				<table class="table" style="margin-top: 10px; margin-bottom: 20px;">
+					<thead>
+						<tr>
+							<th>Conversion Type</th>
+							<th>Source Utterance (CSS10)</th>
+							<th>Target Speaker (CSS10)</th>
+							<th><b>Ours - SelfVC (LibriTTS)</b></th>
+							<th><b>Ours - SelfVC (LibriTTS + CSS10)</b></th>
+						</tr>
+					</thead>
+					<tbody id = "crosslingual_css10Tocss10" >
+						
+					</tbody>
+				</table>
+			</div>
+			</div>
+		</div>
+
+		<div style="border-top: 1px solid grey; display: none;"></div>
+		<div class="row" style="display: none;">
+			
+			<h3>Manual Prosody Control</h3>
+			
+			<p>
+				Besides the above two inference modes (guided and predictive), SelfVC also offers fine-grained control over the prosody of the synthesized speech.
+				During inference, we can simply modify the pitch contour (normalized F0 Contour) and extracted duration of the source utterance 
+				to control the prosody of the synthesized speech. 
+				We present audio examples obtained by scaling the reference pitch contour and duration by a factor. 
+				This behaviour is similar to ACE-VC, except that we do not require any text transcriptions during training to extract duration targets 
+				for the duration predictor.
+			</p>
+			
+			<ul class="nav nav-tabs">
+				<li class="active"><a data-toggle="tab" href="#tabPace">Pace Control</a></li>
+				<li><a data-toggle="tab" href="#tabPitch">Pitch Control</a></li>
+			</ul>
+			
+			<div class="tab-content">
+				<div id="tabPace" class="tab-pane fade in active">
+					<table class="table" style="margin-top: 10px; margin-bottom: 30px">
+						<thead>
+							<tr>
+								<th>Conversion Type</th>
+								<th>Source Utterance</th>
+								<th>Target Speaker</th>
+								<th>Same Pace</th>
+								<th>Fast Pace (1.5 X)</th>
+								<th>Slow Pace (0.7 X)</th>
+							</tr>
+						</thead>
+						<tbody id = "pace_control" >
+							
+						</tbody>
+					</table>
+				</div>
+				<div id="tabPitch" class="tab-pane fade">
+					<table class="table" style="margin-top: 20px;">
+						<thead>
+							<tr>
+								<th>Conversion Type</th>
+								<th>Source Utterance</th>
+								<th>Target Speaker</th>
+								<th>Same Pitch (1X)</th>
+								<th>Higher Pitch (3X)</th>
+								<th>Lower Pitch (0.5X)</th>
+							</tr>
+						</thead>
+						<tbody id = "pitch_control" >
+							
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		
+		<div style="border-top: 1px solid grey; display: none;"></div>
+		<div class="row" style="display: none;">
+			<h3>Bonus! SelfVC Finetuned on Celebrity Voices</h3>
+			<p>
+				Finally, we present audio examples from SelfVC finetuned on just a few minutes of speech data from different Celebrities. 
+				Since SelfVC is trained in a text-free manner, we can adapt it for any speaker with only audio data. For this experiment, 
+				we download audio monologues (roughly 5-10 minutes per speaker) for each speaker from Youtube and finetune SelfVC (LibriTTS) on the combined data.
+				We accompany the generated audio with lip-synced video avatars generated from <a href="https://github.com/FuxiVirtualHuman/AAAI22-one-shot-talking-face">One Shot Talking Face</a>
+			</p>
+			<p>
+				We also have a <a href="https://selfspeechsynthesis.github.io/demo.html">live demo</a> where you can upload your own audio and convert it to any of the celebrity voices below.
+			</p>
+			<p>
+				<b>Disclaimer:</b> This demo is for academic and research purposes only. We do not own the rights to the audio or video content used in this demo.
+			</p>
+			<table class="table" style="margin-top: 20px;">
+				<thead>
+					<tr>
+						<th>Source Utterance</th>
+						<th>Target Speaker</th>
+						<th>SelfVC Generated Audio</th>
+					</tr>
+				</thead>
+				<tbody id = "celebrity_table" >
+					
+				</tbody>
+			</table>
+
+		</div>
+
+		
+		
+
+	</div>
+	<hr>
+	
+</body>
+	
+	
+	
+<script type="text/javascript">
+
+function fill_audio_table(tbody_id, audio_columns, transcripts, audio_width){
+	var num_rows = audio_columns[1].length;
+	var base_url = "https://expressivecloning.s3.us-east-2.amazonaws.com/AMTEVAL/"
+	for(var ridx=0; ridx < num_rows; ridx++){
+		var tr_string = "<tr>";
+		for(var cidx=0; cidx < audio_columns.length; cidx++){
+			if(cidx > 0){
+				var audio_url = audio_columns[cidx][ridx];
+				if(!audio_url.startsWith("audio/") ){
+					audio_url = base_url + audio_columns[cidx][ridx];	
+				}
+				tr_string += '<td><audio class="class_audio" controls="" style="width:'+ audio_width +'px; text-align: center;"><source src="' + audio_url + '" type="audio/wav">Your browser does not support the audio tag</audio>';
+				if(cidx == 1 && transcripts.length > 0){
+					tr_string += '<details><summary style="cursor: pointer; color: #76b900;">[Show transcript]</summary>' + transcripts[ridx] + '</details>'
+				}
+				tr_string += '</td>';
+				
+			}
+			else{
+				tr_string += '<td style="white-space: nowrap; text-align: left">' + audio_columns[cidx][ridx] + '</td>';
+			}
+		}
+		tr_string += "</tr>";
+		$("#" + tbody_id).append(tr_string);
+	}
+	
+}
+
+function fill_celebrity_table(tbody_id, audio_columns, transcripts, audio_width){
+	var num_rows = audio_columns[1].length;
+	for(var ridx=0; ridx < num_rows; ridx++){
+		var tr_string = "<tr>";
+		for(var cidx=0; cidx < audio_columns.length; cidx++){
+			if(cidx >= 0 && cidx < audio_columns.length - 1){
+				var audio_url = audio_columns[cidx][ridx];
+				// Align audio center vertically
+				tr_string += '<td><audio class="class_audio" controls="" style="width:'+ audio_width +'px; margin-top: 50px; text-align: center; vertical-align: center;"><source src="' + audio_url + '" type="audio/wav">Your browser does not support the audio tag</audio>';
+				if(cidx == 1 && transcripts.length > 0){
+					tr_string += '<details><summary style="cursor: pointer; color: #76b900;">[Show transcript]</summary>' + transcripts[ridx] + '</details>'
+				}
+				tr_string += '</td>';
+				
+			}
+			else if (cidx == audio_columns.length - 1){
+				var video_url = audio_columns[cidx][ridx];
+				tr_string += '<td><video class="class_video" controls="" style="width:'+ 200 +'px; text-align: center;"><source src="' + video_url + '" type="video/mp4">Your browser does not support the video tag</video>';
+				tr_string += '</td>';
+			}
+			else{
+				tr_string += '<td style="white-space: nowrap; text-align: left">' + audio_columns[cidx][ridx] + '</td>';
+			}
+		}
+		tr_string += "</tr>";
+		$("#" + tbody_id).append(tr_string);
+	}
+}
+
+var comparison_types_unseen = [
+]
+
+
+var source_names = [
+	"source_30",
+	"source_11",
+	"source_11",
+	"source_30",
+	// "source_150"
+]
+
+var unseen_transcripts = [
+	
+]
+
+var target_names = [
+	"targetspeaker_29",
+	"targetspeaker_29",
+	"targetspeaker_34",
+	"targetspeaker_34"
+]
+
+var comparison_types_unseen = [
+	"Male to Female",
+	"Female to Female",
+	"Female to Male",
+	"Male to Male"
+]
+
+var source_utterances_unseen = [];
+var target_utterances_unseen = [];
+var mimic_utterances_unseen = [];
+var adapt_utterances_unseen = [];
+
+for(var idx=0; idx < source_names.length; idx++){
+	var source = source_names[idx]
+	var target = target_names[idx]
+	var source_path = "SRC_UNSEEN_LIBRI/" + source + ".wav";
+	var target_path = "TARGET_UNSEEN_LIBRI/" + target + ".wav";
+	var mimic_path = "unseenlibri_guidedself/" + source + "_" + target + ".wav";
+	var adapt_path = "unseenlibri_predself/" + source + "_" + target + ".wav";
+	source_utterances_unseen.push(source_path);
+	target_utterances_unseen.push(target_path);
+	mimic_utterances_unseen.push(mimic_path);
+	adapt_utterances_unseen.push(adapt_path);
+}
+
+var unseen_columns = [
+	comparison_types_unseen,
+	source_utterances_unseen,
+	target_utterances_unseen,
+	adapt_utterances_unseen,
+	mimic_utterances_unseen,
+]
+
+
+var source_utterances_comparison = [
+	"source_20",
+	"source_70",
+	"source_140",
+	"source_40"
+
+]
+
+var target_utterances_comparison = [
+	"targetspeaker_29",
+	"targetspeaker_23",
+	"targetspeaker_36",
+	"targetspeaker_34",
+]
+
+var comparison_types = [
+	"Male To Female",
+	"Female To Female",
+	"Female To Male",
+	"Male To Male",
+]
+
+var comparison_transcripts = [
+	
+]
+
+var source_paths = [];
+var target_paths = [];
+var fragment_comparison = [];
+var s2vc_comparison = [];
+var yourtts_comparison = [];
+var ace_comparison = [];
+var ours_comparison = [];
+
+for(var idx=0; idx < source_utterances_comparison.length; idx++){
+	source_paths.push("SRC_UNSEEN_LIBRI/" + source_utterances_comparison[idx] + ".wav");
+	target_paths.push("TARGET_UNSEEN_LIBRI/" + target_utterances_comparison[idx] + ".wav");
+	fragment_comparison.push("unseenlibri_fragmentvc" + "/" + source_utterances_comparison[idx] + "_" + target_utterances_comparison[idx] + ".wav");
+	s2vc_comparison.push("unseenlibri_s2vc" + "/" + source_utterances_comparison[idx] + "_" + target_utterances_comparison[idx] + ".wav");
+	yourtts_comparison.push("unseenlibri_yourtts" + "/" + source_utterances_comparison[idx] + "_" + target_utterances_comparison[idx] + ".wav");
+	ace_comparison.push("unseenlibri_ace" + "/" + source_utterances_comparison[idx] + "_" + target_utterances_comparison[idx] + ".wav");
+	ours_comparison.push("unseenlibri_self" + "/" + source_utterances_comparison[idx] + "_" + target_utterances_comparison[idx] + ".wav");
+}
+
+var comparison_columns = [
+	comparison_types,
+	source_paths,
+	target_paths,
+	fragment_comparison,
+	s2vc_comparison,
+	yourtts_comparison,
+	ace_comparison,
+	ours_comparison
+]
+
+fill_audio_table("unseen_speakers", unseen_columns,unseen_transcripts, 250)
+// fill_audio_table("seen_speakers", seen_columns, seen_transcripts, 250)
+fill_audio_table("comparison_table", comparison_columns, comparison_transcripts, 130)
+
+var css_source_language_pairs = [
+	["source_00", "chinese"],
+	["source_10", "greek"],
+	["source_20", "finnish"],
+	["source_30", "spanish"],
+	["source_40", "dutch"],
+	["source_50", "german"],
+	["source_60", "japanese"],
+	["source_70", "french"],
+	["source_80", "hungarian"],
+	["source_90", "russian"],
+]
+
+var english_source_utterances = [
+	"source_110",
+	"source_40",
+	"source_20",
+	"source_70",
+	"source_101",
+	"source_80",
+	"source_21",
+	"source_80",
+	"source_110",
+	"source_171",
+]
+
+var css_target_language_pairs = [
+	["targetspeaker_1_1", "greek"],
+	["targetspeaker_2_1", "finnish"],
+	["targetspeaker_3_1", "spanish"],
+	["targetspeaker_4_1", "dutch"],
+	["targetspeaker_5_1", "german"],
+	["targetspeaker_6_1", "japanese"],
+	["targetspeaker_7_1", "french"],
+	["targetspeaker_8_1", "hungarian"],
+	["targetspeaker_9_1", "russian"],
+	["targetspeaker_0_1", "chinese"],
+]
+
+var english_target_speakers = [
+	"targetspeaker_29",
+	"targetspeaker_35",
+	"targetspeaker_23",
+	"targetspeaker_30",
+	"targetspeaker_36",
+	"targetspeaker_34",
+	"targetspeaker_31",
+	"targetspeaker_29",
+	"targetspeaker_35",
+	"targetspeaker_23",
+]
+
+var cross_lingual_types = [];
+var cross_lingual_sources = [];
+var cross_lingual_targets = [];
+var cross_lingual_self = [];
+var cross_lingual_selfCSS = [];
+for(var esi=0; esi < english_source_utterances.length; esi++){
+	var source = english_source_utterances[esi];
+	var target = css_target_language_pairs[esi][0];
+	var source_path = "SRC_UNSEEN_LIBRI/" + source + ".wav";
+	var target_path = "TARGET_CSS_ALL/" + target + ".wav";
+	var self_path = "LibriTocss10_self/" + source + "_" + target + ".wav";
+	var selfCSS_path = "LibriTocss10_selfCSS/" + source + "_" + target + ".wav";
+	cross_lingual_types.push("English To " + css_target_language_pairs[esi][1]);
+	cross_lingual_sources.push(source_path);
+	cross_lingual_targets.push(target_path);
+	cross_lingual_self.push(self_path);
+	cross_lingual_selfCSS.push(selfCSS_path);
+}
+
+var cross_lingual_columns = [
+	cross_lingual_types,
+	cross_lingual_sources,
+	cross_lingual_targets,
+	cross_lingual_self,
+	cross_lingual_selfCSS,
+]
+
+fill_audio_table("crosslingual_englishTocss10", cross_lingual_columns, [], 200);
+
+
+cross_lingual_types = [];
+cross_lingual_sources = [];
+cross_lingual_targets = [];
+cross_lingual_self = [];
+cross_lingual_selfCSS = [];
+for(var esi=0; esi < english_target_speakers.length; esi++){
+	var source = css_source_language_pairs[esi][0];
+	var target = english_target_speakers[esi];
+	var source_path = "SRC_CSS_ALL/" + source + ".wav";
+	var target_path = "TARGET_UNSEEN_LIBRI/" + target + ".wav";
+	var self_path = "css10ToLibri_self/" + source + "_" + target + ".wav";
+	var selfCSS_path = "css10ToLibri_selfCSS/" + source + "_" + target + ".wav";
+	cross_lingual_types.push(css_source_language_pairs[esi][1] + " To English");
+	cross_lingual_sources.push(source_path);
+	cross_lingual_targets.push(target_path);
+	cross_lingual_self.push(self_path);
+	cross_lingual_selfCSS.push(selfCSS_path);
+}
+
+var cross_lingual_columns = [
+	cross_lingual_types,
+	cross_lingual_sources,
+	cross_lingual_targets,
+	cross_lingual_self,
+	cross_lingual_selfCSS,
+]
+
+fill_audio_table("crosslingual_css10Toenglish", cross_lingual_columns, [], 200);
+
+
+
+cross_lingual_types = [];
+cross_lingual_sources = [];
+cross_lingual_targets = [];
+cross_lingual_self = [];
+cross_lingual_selfCSS = [];
+for(var esi=0; esi < english_target_speakers.length; esi++){
+	var source = css_source_language_pairs[esi][0];
+	var target = css_target_language_pairs[esi][0];
+	var source_path = "SRC_CSS_ALL/" + source + ".wav";
+	var target_path = "TARGET_CSS_ALL/" + target + ".wav";
+	var self_path = "css10Tocss10_self/" + source + "_" + target + ".wav";
+	var selfCSS_path = "css10Tocss10_selfCSS/" + source + "_" + target + ".wav";
+	cross_lingual_types.push(css_source_language_pairs[esi][1] + " To " + css_target_language_pairs[esi][1]);
+	cross_lingual_sources.push(source_path);
+	cross_lingual_targets.push(target_path);
+	cross_lingual_self.push(self_path);
+	cross_lingual_selfCSS.push(selfCSS_path);
+}
+
+var cross_lingual_columns = [
+	cross_lingual_types,
+	cross_lingual_sources,
+	cross_lingual_targets,
+	cross_lingual_self,
+	cross_lingual_selfCSS,
+]
+
+fill_audio_table("crosslingual_css10Tocss10", cross_lingual_columns, [], 200);
+
+
+
+var pitch_control_types = [
+	"Female to Male",
+	"Male to Female",
+]
+
+var source_pitch_control = [
+	'source_110',
+	'source_140',
+]
+
+var target_pitch_control = [
+	"targetspeaker_29",
+	"targetspeaker_34",
+]
+
+var prosody_source_paths = [];
+var prosody_target_paths = [];
+var prosody_normal_paths = [];
+var prosody_high_paths = [];
+var prosody_low_paths = [];
+for(var idx=0; idx < source_pitch_control.length; idx++){
+	prosody_source_paths.push("SRC_UNSEEN_LIBRI/" + source_pitch_control[idx] + ".wav");
+	prosody_target_paths.push("TARGET_UNSEEN_LIBRI/" + target_pitch_control[idx] + ".wav");
+	prosody_normal_paths.push("unseenlibri_self/" + source_pitch_control[idx] + "_" + target_pitch_control[idx] + ".wav");
+	prosody_high_paths.push("unseenlibri_self_pace1.5/" + source_pitch_control[idx] + "_" + target_pitch_control[idx] + ".wav");
+	prosody_low_paths.push("unseenlibri_self_pace0.7/" + source_pitch_control[idx] + "_" + target_pitch_control[idx] + ".wav");
+}
+
+var control_columns = [
+	pitch_control_types,
+	prosody_source_paths,
+	prosody_target_paths,
+	prosody_normal_paths,
+	prosody_high_paths,
+	prosody_low_paths,
+]
+
+var transcripts_pace_control = [
+	
+]
+
+fill_audio_table("pace_control", control_columns, transcripts_pace_control, 200)
+
+
+
+prosody_source_paths = [];
+prosody_target_paths = [];
+prosody_normal_paths = [];
+prosody_high_paths = [];
+prosody_low_paths = [];
+for(var idx=0; idx < source_pitch_control.length; idx++){
+	prosody_source_paths.push("SRC_UNSEEN_LIBRI/" + source_pitch_control[idx] + ".wav");
+	prosody_target_paths.push("TARGET_UNSEEN_LIBRI/" + target_pitch_control[idx] + ".wav");
+	prosody_normal_paths.push("unseenlibri_guidedself/" + source_pitch_control[idx] + "_" + target_pitch_control[idx] + ".wav");
+	prosody_high_paths.push("unseenlibri_self_pitch3x/" + source_pitch_control[idx] + "_" + target_pitch_control[idx] + ".wav");
+	prosody_low_paths.push("unseenlibri_self_pitch0.5x/" + source_pitch_control[idx] + "_" + target_pitch_control[idx] + ".wav");
+}
+
+var control_columns = [
+	pitch_control_types,
+	prosody_source_paths,
+	prosody_target_paths,
+	prosody_normal_paths,
+	prosody_high_paths,
+	prosody_low_paths,
+]
+
+fill_audio_table("pitch_control", control_columns, transcripts_pace_control, 200)
+
+
+var celeb_sources = [
+	"audio/celeb_source1.wav",
+	"audio/celeb_source2.wav",
+	"audio/celeb_source3.wav",
+]
+
+var celeb_targets = [
+	"audio/celeb_target1.wav",
+	"audio/celeb_target2.wav",
+	"audio/celeb_target3.wav",
+]
+
+var celeb_videos = [
+	"audio/celeb_video1.mp4",
+	"audio/celeb_video2.mp4",
+	"audio/celeb_video3.mp4",
+]
+
+var celebrity_columns = [
+	celeb_sources,
+	celeb_targets,
+	celeb_videos,
+]
+
+fill_celebrity_table("celebrity_table", celebrity_columns, [], 300)
+
+</script>	
+
+
+</html>
