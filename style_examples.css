@@ -65,6 +65,7 @@ th {
 }
 td {
   height: 40px;
+  text-align: center;
 }
 /*
 td {width: 250px;}*/
